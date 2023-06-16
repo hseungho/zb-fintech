@@ -3,7 +3,7 @@ package com.zerobase.hseungho.domain.domain
 import javax.persistence.*
 
 @Entity
-@Table(name = "USER_INFO")
+@Table(name = "USR_INFO")
 class UserInfo(
         @Column(name = "usr_key")
         val userKey: String,
