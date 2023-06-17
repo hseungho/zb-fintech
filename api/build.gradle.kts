@@ -15,4 +15,7 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.+")
 
+    implementation("org.springframework.boot:spring-boot-starter-aop")
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
+
 }
