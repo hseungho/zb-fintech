@@ -2,7 +2,7 @@ package com.zerobase.hseungho.api.loan.request
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.zerobase.hseungho.api.loan.GenerateKey
+import com.zerobase.hseungho.api.loan.util.GenerateKey
 import com.zerobase.hseungho.api.loan.encrypt.EncryptComponent
 import com.zerobase.hseungho.domain.domain.UserInfo
 import com.zerobase.hseungho.domain.repository.UserInfoRepository

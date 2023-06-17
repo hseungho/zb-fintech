@@ -1,4 +1,4 @@
-package com.zerobase.hseungho.api.loan
+package com.zerobase.hseungho.api.loan.util
 
 import org.springframework.stereotype.Component
 import java.util.UUID
