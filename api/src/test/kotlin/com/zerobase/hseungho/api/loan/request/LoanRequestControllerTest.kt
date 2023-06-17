@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
+import org.springframework.kafka.core.KafkaTemplate
+import org.springframework.kafka.core.ProducerFactory
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
@@ -32,6 +34,9 @@ internal class LoanRequestControllerTest {
     private lateinit var generateKey: GenerateKey
 
     private lateinit var encryptComponent: EncryptComponent
+
+    @Autowired
+    private lateinit var kafkaTemplate: KafkaTemplate<String, String>
 
     private lateinit var loanRequestSender: LoanRequestSender
 
@@ -50,8 +55,8 @@ internal class LoanRequestControllerTest {
     fun init() {
         generateKey = GenerateKey()
         encryptComponent = EncryptComponent()
-        loanRequestSender = LoanRequestSender()
-        loanRequestServiceImpl = LoanRequestServiceImpl(generateKey, encryptComponent, userInfoRepository)
+        loanRequestSender = LoanRequestSender(kafkaTemplate, mapper)
+        loanRequestServiceImpl = LoanRequestServiceImpl(generateKey, encryptComponent, userInfoRepository, loanRequestSender)
         loanRequestController = LoanRequestController(loanRequestServiceImpl)
 
         mockMvc = MockMvcBuilders.standaloneSetup(loanRequestController).build()
