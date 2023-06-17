@@ -6,12 +6,15 @@ import com.zerobase.hseungho.api.loan.util.GenerateKey
 import com.zerobase.hseungho.api.loan.encrypt.EncryptComponent
 import com.zerobase.hseungho.domain.domain.UserInfo
 import com.zerobase.hseungho.domain.repository.UserInfoRepository
+import com.zerobase.hseungho.kafka.producer.LoanRequestSender
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestTemplate
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
@@ -30,9 +33,11 @@ internal class LoanRequestControllerTest {
 
     private lateinit var encryptComponent: EncryptComponent
 
-    private val userInfoRepository: UserInfoRepository = mockk()
+    private lateinit var loanRequestSender: LoanRequestSender
 
     private lateinit var mapper: ObjectMapper
+
+    private val userInfoRepository: UserInfoRepository = mockk()
 
     @MockBean
     private lateinit var loanRequestServiceImpl: LoanRequestServiceImpl
@@ -45,6 +50,7 @@ internal class LoanRequestControllerTest {
     fun init() {
         generateKey = GenerateKey()
         encryptComponent = EncryptComponent()
+        loanRequestSender = LoanRequestSender()
         loanRequestServiceImpl = LoanRequestServiceImpl(generateKey, encryptComponent, userInfoRepository)
         loanRequestController = LoanRequestController(loanRequestServiceImpl)
 
