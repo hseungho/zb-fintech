@@ -1,5 +1,8 @@
 package com.zerobase.hseungho.api.loan.review
 
+import com.zerobase.hseungho.api.exception.CustomException
+import com.zerobase.hseungho.api.exception.ErrorCode
+import com.zerobase.hseungho.domain.domain.LoanReview
 import com.zerobase.hseungho.domain.repository.LoanReviewRepository
 import org.springframework.stereotype.Service
 
@@ -9,24 +12,19 @@ class LoanReviewServiceImpl(
 ) : LoanReviewService {
 
     override fun loanReviewMain(userKey: String): LoanReviewDto.LoanReviewResponseDto {
-        val loanResult = getLoanResult(userKey)
-
         return LoanReviewDto.LoanReviewResponseDto(
                 userKey = userKey,
-                lonaResult = LoanReviewDto.LoanResult(
-                        userLimitAmount = loanResult.userLimitAmount,
-                        userLoanInterest = loanResult.userLoanInterest
-                )
+                lonaResult = getLoanResult(userKey)?.toResponseDto()
+                        ?: throw CustomException(ErrorCode.RESULT_NOT_FOUND)
         )
     }
 
-    override fun getLoanResult(userKey: String): LoanReviewDto.LoanReview {
-        val loanReview = loanReviewRepository.findByUserKey(userKey)
+    override fun getLoanResult(userKey: String): LoanReview? = loanReviewRepository.findByUserKey(userKey)
 
-        return LoanReviewDto.LoanReview(
-                loanReview.userKey,
-                loanReview.loanLimitedAmount,
-                loanReview.loanInterest
-        )
-    }
+    private fun LoanReview.toResponseDto() =
+            LoanReviewDto.LoanResult(
+                    userLimitAmount = this.loanLimitedAmount,
+                    userLoanInterest = this.loanInterest
+            )
+
 }
