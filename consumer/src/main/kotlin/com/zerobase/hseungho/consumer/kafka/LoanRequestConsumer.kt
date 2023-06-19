@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.zerobase.hseungho.consumer.service.LoanRequestService
 import com.zerobase.hseungho.kafka.dto.LoanRequestDto
 import org.springframework.kafka.annotation.KafkaListener
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 
-@Service
+@Component
 class LoanRequestConsumer(
         private val objectMapper: ObjectMapper,
         private val loanRequestService: LoanRequestService

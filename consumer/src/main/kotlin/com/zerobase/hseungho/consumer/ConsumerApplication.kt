@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan
 
 @SpringBootApplication
 @EntityScan(basePackages = [ "com.zerobase.hseungho.domain" ])
-@ComponentScan(basePackages = [ "com.zerobase.hseungho.domain" ])
+@ComponentScan(basePackages = [ "com.zerobase.hseungho" ])
 class ConsumerApplication
 
 fun main(args: Array<String>) {
