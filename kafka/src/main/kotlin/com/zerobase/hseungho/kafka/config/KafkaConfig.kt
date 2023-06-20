@@ -15,7 +15,7 @@ import org.springframework.kafka.core.*
 class KafkaConfig {
 
     companion object {
-        const val boostrapServer = "localhost:9092"
+        const val boostrapServer = "kafka:9092"
     }
 
     @Bean

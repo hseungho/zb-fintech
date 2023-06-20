@@ -25,7 +25,7 @@ services:
     container_name: fintech-api
     ports:
       - "80:80"
-    networks: 
+    networks:
       - fintech
   consumer:
     image: fintech-consumer:1.0.0
